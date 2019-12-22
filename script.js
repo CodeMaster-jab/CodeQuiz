@@ -100,6 +100,7 @@ function startQuiz(){
     lblTimeRemaining.textContent = "00:00";
     quizStart.classList.remove('d-none');
     quizQuestions.classList.add('d-none');
+    quizQuestions.innerHTML = "";
     scoresDisplay.classList.add('d-none');
 }
 /*
