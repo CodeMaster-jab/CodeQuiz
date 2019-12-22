@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Code Quiz</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+        
+        <div class="row " width="100%" >
+            <div class="col-8">
+                <h1>Code Quiz</h1>
+            </div>
+            <div class="col-4">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarNav">
+                    <ul class="navbar-nav ">
+                        <li class="nav-item active">
+                            <a class="nav-link" id="btnQuiz" href="#">Quiz <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="btnScores" href="#">Scores</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container" id="quizStart">
+        <h2>Instructions:</h2>
+        <p>Answer the multiple choice questions as quickly as you can.  Wrong answers will cost you time, and lower your score.  Press start to begin.</p>
+        <button id="btnStart" value="Start" class="btn btn-lg btn-primary text-center">Start</button>
+    </div>
+    <div class="container d-none" id="scoresDisplay" >
+        Scores will be displayed Here
+    </div>
+    <div class="container d-none"  id="quizQuestions">
+            
+    </div>
+    <footer class="fixed-bottom">
+        <div class="row float-none float-md-right">
+            <div class="col-12 mr-2">
+                <span>Time Remaining: </span><label id="lblTimeRemaining">00:00</label>
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" 
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+    
+</body>
+</html>
