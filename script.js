@@ -1,6 +1,6 @@
 
-const totalSeconds = 40; // Total Number of seconds the user has to answer all Questions 
-const penaltySeconds = 5; // Number of seconds to subtract if a question is not answered correctly
+const totalSeconds = 90; // Total Number of seconds the user has to answer all Questions 
+const penaltySeconds = 30; // Number of seconds to subtract if a question is not answered correctly
 
 var btnStart = document.querySelector('#btnStart');
 var btnScores = document.querySelector('#btnScores');
@@ -13,6 +13,12 @@ var interval;
 var timeRemaining = 0; // Time remaining in seconds (Score)
 var scores  = JSON.parse(localStorage.getItem('scores'));
 var qIndex = 0; // Question Index
+// Audio Files
+var buzz = document.createElement("AUDIO");
+buzz.setAttribute('src','Short-game-show-buzzer-sound/Short-game-show-buzzer-sound.mp3');
+var ding = document.createElement("AUDIO");
+ding.setAttribute('src','Ding/Ding.mp3');
+
 /*
     Get Users Initials and save Initials and Score to localStorage
 */
@@ -28,6 +34,8 @@ function getUserInitials(){
     }else{
         scores.push( { initals: usrInitials, score: timeRemaining } );
     }
+    // Sort the Scores before saving them to localStorage
+    scores = scores.sort((a,b)=>(a.score <= b.score ? 1: -1));
     localStorage.setItem('scores', JSON.stringify(scores));
 }
 /*
@@ -36,11 +44,21 @@ function getUserInitials(){
 function btnQuestionClicked(btn){
     if (btn.textContent === questions[qIndex].answer){
         $(btn).css('background-color','lime');
+        ding.play();
     }else{
         $(btn).css('background-color','red');
-        timeRemaining -= 5;
+        buzz.play();
+        timeRemaining -= penaltySeconds;
+        displayTime();
     }
     $('#q' + qIndex).addClass('d-none');
+    if (timeRemaining <= 0){
+        setTimeout(()=>{
+            alert( "Game Over!  You have no time left, your score is 0.");
+        },1000);
+        showScores();
+        return false;
+    }
     qIndex++;
     if (qIndex < questions.length){
         $('#q' + qIndex).removeClass('d-none');
@@ -52,7 +70,9 @@ function btnQuestionClicked(btn){
         if (timeRemaining > 0){
             getUserInitials();
         }else{
-            alert( "Game Over!  You have no time left, your score is 0.")
+            setTimeout(()=>{
+                alert( "Game Over!  You have no time left, your score is 0.");
+            },1000);
         }
         showScores();
     }
@@ -68,7 +88,7 @@ function buildQuestionList(){
             newDiv.append("<button class='btn btn-primary ml-2 btn-answer' onclick='btnQuestionClicked(this)'>" + questions[i].choices[x] +"</button>");
         }
         console.log(newDiv.innerHTML);
-        $('#quizQuestions').append(newDiv);
+        $('#quizQuestions').prepend(newDiv);
     }
 }
 /*
@@ -97,7 +117,7 @@ function showScores(){
     } else{
         scoresDisplay.innerHTML = "<h2>Here are the Saved Scores:</h2><br/>";
         for (var i=0; i<scores.length; i++){
-            var newEl = $("<p>");
+            var newEl = $("<div class='mono'>");
             newEl.text(scores[i].initals + " ............ " + scores[i].score);
             $('#scoresDisplay').append(newEl);
         }
